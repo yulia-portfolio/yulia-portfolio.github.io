@@ -67,7 +67,7 @@ body {
   font-weight: 300;
 }
 
-.contactInfo {
+.skills {
   padding-top: 40px;
 }
 
@@ -77,31 +77,20 @@ body {
   font-weight: 600;
   letter-spacing: 1px;
   margin-bottom: 20px;
-  font-family: 'Permanent Marker', cursive;
+  font-family: 'Permanent Marker', sans-serif;
 
 }
 
-.contactInfo ul {
+.skills ul {
   position: relative;
+  margin-bottom: 30px;
 }
 
-.contactInfo ul li {
+.skills ul li {
   list-style: none;
   position: relative;
   margin: 10px 0;
-  cursor: pointer;
-}
-
-.contactInfo ul li .icon {
-  display: inline-block;
-  width: 30px;
-  font-size: 18px;
-  color: #03a9f4;
-}
-
-.contactInfo ul li span {
-  color: #fff;
-  font-weight: 300;
+  color: #848c90;
 }
 
 .container .right_Side {
@@ -130,8 +119,12 @@ body {
   font-family: 'Permanent Marker', cursive;
 }
 
-p {
+p, .text li {
   color: #fff;
+}
+
+.text li {
+  margin: 5px 0;
 }
 
 .about .box {
@@ -155,6 +148,10 @@ p {
   color: #fff;
   font-size: 16px;
   margin-bottom: 10px;
+}
+
+.year_company {
+  margin-right: 20px;
 }
 
 

@@ -1,0 +1,28 @@
+section {
+  justify-content: center;
+}
+
+#contacts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+#contacts h2 {
+  color: #f7ca18;
+  font-family: 'Permanent Marker', cursive;
+  margin: 10px 0;
+}
+
+#contacts h2 a {
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  #contacts {
+    font-size: 10px;
+  }
+}

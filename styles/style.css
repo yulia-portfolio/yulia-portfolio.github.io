@@ -20,7 +20,8 @@ body {
   font-family: 'Open Sans', sans-serif;
   display: flex;
   flex-direction: column;
-  background-color:#000
+  background-color:#000;
+  line-height: 1.4;
 }
 
 nav {
@@ -74,12 +75,12 @@ section {
   height: 100vh;
   width: 100%;
   display: flex;
+  padding-top: 50px;
 }
 
 h1 {
   font-size: 100px;
   color: #f7ca18;
-  
 }
 
 section .title {
@@ -91,9 +92,21 @@ section .title {
   padding-bottom: 10px;
 }
 
+#description {
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
+}
+
+#swe {
+  font-size: 40px;
+  color: #fff;
+  font-family: 'Permanent Marker', cursive;
+}
+
 .morphing {
   position: relative;
-  font-size: 60px;
+  font-size: 40px;
   font-family: 'Permanent Marker', cursive;
   background-color: #000;
   color: #fff;
@@ -104,6 +117,7 @@ section .title {
   align-items: center;
   overflow: hidden;
   border: 5px solid #000;
+  width: 100%;
 }
 
 .word {
@@ -139,7 +153,7 @@ section .title {
   }
 }
 
-@media (max-width:600px) {
+@media (max-width: 600px) {
   h1 {
     font-size: 40px;
   }
@@ -210,10 +224,36 @@ section .title {
     height:400px;
   }
 
+  #description {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #swe {
+    font-size: 20px;
+  }
   .morphing {
-    font-size: 30px;
+    font-size: 20px;
   }
 }
 
+@media (max-width: 1000px) and (min-width: 600px) {
+  nav > .nav-links {
+    font-size: 16px;
+  }
+  h1 {
+    font-size: 60px;
+  }
 
+  #description {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
+  #swe {
+    font-size: 20px;
+  }
+  .morphing {
+    font-size: 20px;
+  }
+}
