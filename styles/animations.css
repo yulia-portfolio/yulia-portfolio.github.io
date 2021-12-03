@@ -27,7 +27,7 @@ h3 {
 .gallery-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   background-color: #000;
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3);
   width: 80%;
@@ -39,10 +39,12 @@ h3 {
 
 .gallery-item {
   /* flex-basis: 32.7%; */
-  flex-basis: 32.7%;
-  margin-bottom: 6px;
+  margin: 6px;
   border-radius: 5px;
+  width: 400px;
+  height: 200px;
   transition: all 0.3s;
+  overflow: hidden;
 }
 
 .gallery-item:hover {
@@ -54,6 +56,14 @@ h3 {
   height: 100%;
   object-fit: cover;
   border-radius: 5px;
+}
+
+.gallery-item img.small-scale {
+  transform: scale(1.4)
+}
+
+.gallery-item img.medium-scale {
+  transform: scale(1.6)
 }
 
 .gallery-content {
