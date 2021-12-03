@@ -132,6 +132,10 @@ p, .text li {
   margin: 20px 0;
 }
 
+.about .box ol{
+  margin-left: 30px;
+}
+
 .about .box .year_company {
   min-width: 150px;
 }
