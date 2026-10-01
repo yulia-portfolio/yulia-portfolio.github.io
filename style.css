@@ -1,0 +1,1201 @@
+/* =============================================================
+   Yulia Tsernant, personal site
+   "Recital" design: a concert programme, set in type.
+
+   Layout is mobile-first. Breakpoints:
+     600px   tablets (portrait)
+     900px   tablets (landscape) and small laptops, desktop menu appears
+     1200px  laptops and desktops
+     1600px  large screens
+   ============================================================= */
+
+
+/* -------------------------------------------------------------
+   0. Fonts
+   Self-hosted from /fonts so the site never depends on Google's
+   CDN being reachable. Each file was checked to cover the full
+   Russian alphabet before being added here - see the comment
+   on --font-body below for the one typeface that didn't.
+   ------------------------------------------------------------- */
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/playfair-display-500.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/playfair-display-600.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/playfair-display-italic-500.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/playfair-display-italic-600.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/jetbrains-mono-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/jetbrains-mono-500.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/inter-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/inter-500.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/inter-600.woff2") format("woff2");
+}
+
+
+/* -------------------------------------------------------------
+   1. Design tokens
+   Every color, font and spacing value lives here, so the look
+   can be changed in one place.
+   ------------------------------------------------------------- */
+:root {
+  /* Colors. Text/background pairs are all WCAG AA or better. */
+  --color-paper: #fbfbf9;
+  /* page background */
+  --color-paper-deep: #e4e6e0;
+  /* image placeholders, hover fills */
+  --color-ink: #16181b;
+  /* main text, dark footer */
+  --color-muted: #555a62;
+  /* secondary text: 6.7:1 on paper */
+  --color-line: #d4d7cf;
+  /* hairlines (decorative) */
+  --color-accent: #2b45e0;
+  /* cobalt: 6.7:1 on paper */
+
+  --color-on-dark: #fbfbf9;
+  /* text on the dark footer */
+  --color-muted-on-dark: #a3a9b1;
+  /* 7.4:1 on ink */
+  --color-accent-on-dark: #9aabff;
+  /* 7.9:1 on ink */
+  --color-line-on-dark: #3a3e45;
+
+  /* Typefaces: Playfair Display, Inter and JetBrains Mono are all self-hosted
+     from /fonts (see the @font-face rules above), each checked to cover the
+     full Russian alphabet - so every browser renders the same type, with no
+     dependency on Google's CDN or a visitor's installed system fonts. Inter
+     replaced Hanken Grotesk, which had no Cyrillic glyphs. */
+  --font-display: "Playfair Display", "Didot", "Bodoni 72", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Type scale. clamp() lets sizes grow smoothly between phone and desktop. */
+  --text-label: 0.8125rem;
+  /* 13px uppercase labels */
+  --text-small: 0.9375rem;
+  /* 15px */
+  --text-body: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
+  /* 16 → 18px */
+  --text-lead: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+  --text-tagline: clamp(1.375rem, 1.1rem + 1.2vw, 2.25rem);
+  --text-company: clamp(2rem, 1.6rem + 1.4vw, 2.75rem);
+  --text-email: clamp(1.625rem, 1rem + 3vw, 4rem);
+  --text-hero: clamp(3.5rem, 18vw, 11rem);
+
+  /* Spacing */
+  --gutter: clamp(1.25rem, 0.5rem + 4vw, 6rem);
+  /* side padding: 20px on phones, 96px on desktops */
+  --section-space: clamp(3rem, 2rem + 5vw, 7rem);
+  /* space above and below each section */
+  --container-max: 90rem;
+  /* 1440px */
+  --header-height: 4.5rem;
+  --hero-padding-top: clamp(2rem, 1rem + 4vw, 4.5rem);
+  --hero-gap: clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --duration-fast: 150ms;
+  --duration-medium: 350ms;
+
+  /* Minimum size for anything you tap or click (WCAG 2.5.5) */
+  --tap-target: 44px;
+
+  color-scheme: light;
+}
+
+
+/* -------------------------------------------------------------
+   2. Base and reset
+   ------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  /* stop iOS Safari from inflating text in landscape */
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  /* Anchor links land below the sticky header instead of under it */
+  scroll-padding-top: var(--header-height);
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Stops the page scrolling behind the open mobile menu */
+body.is-menu-open {
+  overflow: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+p,
+ol,
+ul {
+  margin: 0;
+}
+
+ol,
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: color var(--duration-fast) ease;
+}
+
+a:hover {
+  color: var(--color-accent);
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* A clear focus ring for keyboard users only (not on mouse click) */
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-paper);
+}
+
+
+/* -------------------------------------------------------------
+   3. Helpers
+   ------------------------------------------------------------- */
+
+/* Centers content and keeps the side gutter at every width */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Hidden on screen, still read by screen readers */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform var(--duration-fast) ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+  color: var(--color-paper);
+}
+
+/* Small uppercase mono labels, like the headings in a concert programme */
+.eyebrow,
+.section__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.eyebrow--on-dark {
+  color: var(--color-muted-on-dark);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap-target);
+  padding: 0.75rem 1.5rem;
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  font-size: var(--text-small);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color var(--duration-fast) ease;
+}
+
+.button:hover {
+  background-color: var(--color-accent);
+  color: var(--color-paper);
+}
+
+/* Quieter version for secondary actions, like "show more" */
+.button--outline {
+  background-color: transparent;
+  color: var(--color-ink);
+  border: 1px solid var(--color-ink);
+}
+
+.button--outline:hover {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+}
+
+
+/* -------------------------------------------------------------
+   4. Header and navigation
+   ------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: var(--color-paper);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--header-height);
+}
+
+.site-header__logo {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-target);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem);
+  text-decoration: none;
+}
+
+/* Hamburger button, phones and portrait tablets only */
+.menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: var(--tap-target);
+  min-height: var(--tap-target);
+  padding: 0 0.25rem;
+  background: none;
+  border: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.menu-toggle__icon {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.menu-toggle__icon span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background-color: currentColor;
+  transition: transform var(--duration-medium) var(--ease-out), opacity var(--duration-fast) ease, width var(--duration-medium) var(--ease-out);
+}
+
+.menu-toggle__icon span:last-child {
+  width: 14px;
+}
+
+/* Hamburger turns into an X while the menu is open */
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon span:nth-child(3) {
+  width: 20px;
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Without JavaScript the button can't do anything, so we hide it
+   and show the links as a simple row instead. An inline script in
+   index.html adds .js to <html> before the page paints. */
+html:not(.js) .menu-toggle {
+  display: none;
+}
+
+html:not(.js) .site-nav__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.25rem;
+}
+
+/* On small screens the menu is a full-screen panel below the header */
+.js .site-nav {
+  position: fixed;
+  top: var(--header-height);
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 2rem var(--gutter);
+  background-color: var(--color-paper);
+  overflow-y: auto;
+  visibility: hidden;
+  /* also removes the links from the tab order */
+  opacity: 0;
+  transform: translateY(-0.5rem);
+  transition: opacity var(--duration-medium) var(--ease-out), transform var(--duration-medium) var(--ease-out), visibility 0s linear var(--duration-medium);
+}
+
+.js .site-nav.is-open {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+
+.site-nav__link {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  min-height: var(--tap-target);
+  padding-block: 0.75rem;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 1.5rem + 3vw, 2.75rem);
+  line-height: 1.1;
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-line);
+}
+
+html:not(.js) .site-nav__link {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: 0;
+}
+
+.site-nav__numeral {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--color-muted);
+}
+
+/* Highlights the section you're currently reading (set in main.js) */
+.site-nav__link.is-current {
+  color: var(--color-accent);
+}
+
+
+/* -------------------------------------------------------------
+   5. Hero
+   ------------------------------------------------------------- */
+.hero {
+  /* no bottom padding: the next section's own top space is the gap */
+  padding-top: var(--hero-padding-top);
+}
+
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--hero-gap);
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: var(--text-hero);
+  font-weight: 600;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+}
+
+.hero__title em {
+  display: block;
+  font-style: italic;
+}
+
+.hero__tagline {
+  font-size: var(--text-tagline);
+  line-height: 1.3;
+}
+
+/* The changing word. main.js swaps the text and toggles .is-leaving
+   so the old word slides up and out before the new one appears. */
+.hero__role {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.2em;
+  color: var(--color-accent);
+  transition: opacity var(--duration-medium) var(--ease-out), transform var(--duration-medium) var(--ease-out);
+}
+
+.hero__role.is-leaving {
+  opacity: 0;
+  transform: translateY(-0.4em);
+}
+
+.hero__role.is-entering {
+  opacity: 0;
+  transform: translateY(0.4em);
+  transition: none;
+}
+
+
+/* -------------------------------------------------------------
+   6. Sections (shared)
+   ------------------------------------------------------------- */
+.section {
+  padding-block: var(--section-space);
+}
+
+/* Phones and tablets: label above content. Desktop: label in its own column. */
+.section__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+}
+
+.section__intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.section__note {
+  max-width: 34ch;
+  font-size: var(--text-small);
+  color: var(--color-muted);
+}
+
+.section__note a {
+  color: var(--color-ink);
+}
+
+.section__note a:hover {
+  color: var(--color-accent);
+}
+
+
+/* -------------------------------------------------------------
+   7. Work
+   ------------------------------------------------------------- */
+.work-item {
+  border-bottom: 1px solid var(--color-line);
+}
+
+/* The h3 wraps the row's button (the accordion pattern), so screen
+   readers can jump between companies. It shouldn't change the text. */
+.work-item__heading {
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
+.work-item__toggle {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.375rem;
+  width: 100%;
+  /* left: breathing room inside the hover fill; right: room for the plus/minus */
+  padding: 1.25rem 2.5rem 1.25rem 0.75rem;
+  position: relative;
+  background: none;
+  border: 0;
+  text-align: left;
+  transition: background-color var(--duration-fast) ease;
+}
+
+.work-item__toggle:hover,
+.work-item__toggle:focus-visible {
+  background-color: var(--color-paper-deep);
+}
+
+.work-item__toggle:hover .work-item__company,
+.work-item__toggle[aria-expanded="true"] .work-item__company {
+  color: var(--color-accent);
+}
+
+.work-item__dates {
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-muted);
+}
+
+.work-item__company {
+  font-family: var(--font-display);
+  font-size: var(--text-company);
+  font-weight: 600;
+  line-height: 1.1;
+  transition: color var(--duration-fast) ease;
+}
+
+.work-item__summary {
+  max-width: 42ch;
+  font-size: var(--text-small);
+  color: var(--color-muted);
+}
+
+/* Plus/minus indicator in the space kept free on the right of the row */
+.work-item__icon {
+  position: absolute;
+  top: 1.375rem;
+  right: 0.75rem;
+  width: 0.8125rem;
+  height: 0.8125rem;
+}
+
+.work-item__icon::before,
+.work-item__icon::after {
+  content: "";
+  position: absolute;
+  background-color: currentColor;
+  transition: transform var(--duration-medium) var(--ease-out);
+}
+
+.work-item__icon::before {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  transform: translateY(-50%);
+}
+
+.work-item__icon::after {
+  left: 50%;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+
+.work-item__toggle[aria-expanded="true"] .work-item__icon::after {
+  transform: translateX(-50%) rotate(90deg);
+}
+
+/* Collapsed by default only once JS is running the toggle;
+   without it, every row's detail stays visible and readable */
+.js .work-item__details {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration-medium) var(--ease-out);
+}
+
+.js .work-item.is-open .work-item__details {
+  grid-template-rows: 1fr;
+}
+
+.work-item__details-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.work-item__points {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  max-width: 56ch;
+  /* lines up with the row text above */
+  padding: 1.375rem 0 1.375rem 0.75rem;
+  font-size: var(--text-small);
+  color: var(--color-muted);
+}
+
+.work-item__points li {
+  padding-left: 1.125rem;
+  position: relative;
+}
+
+.work-item__points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+}
+
+
+/* -------------------------------------------------------------
+   8. Animations grid
+   ------------------------------------------------------------- */
+.animation-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.75rem 1rem;
+}
+
+.animation-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  text-decoration: none;
+}
+
+.animation-card__frame {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background-color: var(--color-paper-deep);
+}
+
+.animation-card__frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-medium) var(--ease-out);
+}
+
+/* Only on devices with a real pointer, so the zoom doesn't stick after a tap */
+@media (hover: hover) {
+  .animation-card:hover .animation-card__frame img {
+    transform: scale(1.04);
+  }
+}
+
+.animation-card__title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: var(--text-small);
+  line-height: 1.3;
+}
+
+.animation-card__number {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-muted);
+}
+
+.animation-grid__fallback {
+  grid-column: 1 / -1;
+}
+
+.animation-gallery__more {
+  margin-top: 2.5rem;
+}
+
+
+/* -------------------------------------------------------------
+   9. About
+   ------------------------------------------------------------- */
+.about {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem;
+}
+
+.about__photo {
+  width: 100%;
+  max-width: 26rem;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  background-color: var(--color-paper-deep);
+}
+
+.about__text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 38rem;
+}
+
+.about__lead {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-lead);
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+.about__body {
+  font-size: var(--text-small);
+  color: var(--color-muted);
+}
+
+.skill-groups {
+  display: grid;
+  gap: 0.625rem;
+}
+
+/* One line per group: "Языки: JavaScript, TypeScript, …" */
+.skill-group {
+  font-size: var(--text-small);
+  line-height: 1.6;
+}
+
+.skill-group__title {
+  display: inline;
+  font-size: inherit;
+  font-weight: 600;
+}
+
+.skill-group__title::after {
+  content: ": ";
+}
+
+.skill-list {
+  display: inline;
+  color: var(--color-muted);
+}
+
+.skill-list li {
+  display: inline;
+}
+
+.skill-list li:not(:last-child)::after {
+  content: ", ";
+}
+
+
+/* -------------------------------------------------------------
+   10. Footer / contact
+   ------------------------------------------------------------- */
+.site-footer {
+  padding-block: clamp(3.5rem, 2rem + 5vw, 6rem);
+  background-color: var(--color-ink);
+  color: var(--color-on-dark);
+}
+
+.site-footer a {
+  color: var(--color-on-dark);
+}
+
+.site-footer a:hover {
+  color: var(--color-accent-on-dark);
+}
+
+.site-footer :focus-visible {
+  outline-color: var(--color-accent-on-dark);
+}
+
+.site-footer__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem;
+}
+
+.site-footer__main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.email-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+}
+
+.email-link {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: var(--text-email);
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+  /* lets the address wrap on very narrow screens */
+  text-decoration: none;
+}
+
+.copy-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap-target);
+  height: var(--tap-target);
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--color-muted-on-dark);
+  transition: color var(--duration-fast) ease;
+}
+
+.copy-button:hover,
+.copy-button:focus-visible,
+.copy-button.is-copied {
+  color: var(--color-accent-on-dark);
+}
+
+.copy-button__icon {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Swap the copy icon for a checkmark after a successful copy */
+.copy-button__icon--done,
+.copy-button.is-copied .copy-button__icon--copy {
+  display: none;
+}
+
+.copy-button.is-copied .copy-button__icon--done {
+  display: block;
+}
+
+/* Sits inside the button, so hovering the tooltip keeps it open */
+.copy-button__tooltip {
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 0;
+  padding: 0.375rem 0.625rem;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--duration-fast) ease, visibility var(--duration-fast) ease;
+}
+
+/* Set by main.js when there's no room to the right */
+.copy-button.is-tooltip-end .copy-button__tooltip {
+  left: auto;
+  right: 0;
+}
+
+.copy-button:hover .copy-button__tooltip,
+.copy-button:focus-visible .copy-button__tooltip,
+.copy-button.is-showing-result .copy-button__tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Escape hides the tooltip until the pointer or focus leaves */
+.copy-button.is-tooltip-dismissed .copy-button__tooltip {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.social-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--color-line-on-dark);
+}
+
+.social-list a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: var(--tap-target);
+  padding-block: 0.75rem;
+  border-bottom: 1px solid var(--color-line-on-dark);
+  text-decoration: none;
+}
+
+.site-footer__legal {
+  font-size: var(--text-small);
+  color: var(--color-muted-on-dark);
+}
+
+
+/* -------------------------------------------------------------
+   11. Tablets (portrait), 600px and up (37.5em, so larger text
+       settings get the narrower layout sooner)
+   ------------------------------------------------------------- */
+@media (min-width: 37.5em) {
+  .animation-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem 1.25rem;
+  }
+
+  .work-item__toggle {
+    grid-template-columns: 9rem minmax(0, 1fr);
+    column-gap: 2rem;
+    align-items: center;
+  }
+
+  .work-item__summary {
+    grid-column: 2;
+  }
+
+  /* row padding + dates column + gap, so the points start under the company name */
+  .work-item__points {
+    padding-left: 11.75rem;
+  }
+
+  .about {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(2rem, 1rem + 3vw, 4rem);
+    align-items: start;
+  }
+
+  .social-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0 2rem;
+    border-top: 0;
+  }
+
+  .social-list a {
+    border-bottom: 0;
+  }
+}
+
+
+/* -------------------------------------------------------------
+   12. Tablets (landscape) and small laptops, 900px and up (56.25em)
+   The menu becomes a row of links in the header.
+   ------------------------------------------------------------- */
+@media (min-width: 56.25em) {
+  :root {
+    --header-height: 5.5rem;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  /* Undo the full-screen panel */
+  .js .site-nav {
+    position: static;
+    padding: 0;
+    background: none;
+    overflow: visible;
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .site-nav__list,
+  html:not(.js) .site-nav__list {
+    display: flex;
+    gap: clamp(1.5rem, 0.5rem + 2vw, 2.5rem);
+  }
+
+  .site-nav__link,
+  html:not(.js) .site-nav__link {
+    align-items: center;
+    gap: 0.35em;
+    padding-block: 0;
+    border: 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .site-nav__numeral {
+    color: inherit;
+  }
+
+  .site-footer__inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    column-gap: 3rem;
+  }
+
+  .social-list {
+    justify-content: flex-end;
+  }
+
+  .site-footer__legal {
+    grid-column: 1 / -1;
+  }
+}
+
+
+/* -------------------------------------------------------------
+   13. Laptops and desktops, 1200px and up (75em)
+   Section labels move into a left column, like a programme.
+   ------------------------------------------------------------- */
+@media (min-width: 75em) {
+  .section__grid {
+    grid-template-columns: 17.5rem minmax(0, 1fr);
+    gap: 3rem;
+  }
+
+  .work-item__toggle {
+    grid-template-columns: 11rem minmax(0, 1fr) minmax(0, 18rem);
+    align-items: center;
+    padding: 1.625rem 4rem 1.625rem 1rem;
+  }
+
+  /* Centred on the row, level with the company name */
+  .work-item__icon {
+    top: 50%;
+    right: 1.5rem;
+    margin-top: -0.40625rem;
+  }
+
+  .work-item__summary {
+    grid-column: 3;
+  }
+
+  .work-item__points {
+    padding-left: 14rem;
+  }
+}
+
+
+/* -------------------------------------------------------------
+   14. Accessibility preferences
+   ------------------------------------------------------------- */
+
+/* Turn off movement for people who've asked their OS for less of it */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Windows High Contrast / forced colors: keep button edges visible */
+@media (forced-colors: active) {
+
+  .button,
+  .copy-button {
+    border: 1px solid ButtonText;
+  }
+
+  .copy-button__tooltip {
+    border: 1px solid CanvasText;
+  }
+}
+
+/* Printing: plain black on white, no header or decoration */
+@media print {
+
+  .site-header,
+  .button,
+  .copy-button {
+    display: none !important;
+  }
+
+  body,
+  .site-footer {
+    background: #fff;
+    color: #000;
+  }
+
+  .site-footer a {
+    color: #000;
+  }
+}

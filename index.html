@@ -1,49 +1,362 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="./media/y.png">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles/style.css">
-  <title>Yulia Tsernant</title>
-</head>
-<body>
-  <nav class="nav">
-    <input type="checkbox" id="nav-check">
-    <div class="nav-btn">
-      <label for="nav-check">
-        <span></span>
-        <span></span>
-        <span></span>
-      </label>
-    </div>
-  
-    <div class="nav-links">
-      <a href="/">Home</a>
-      <a href="about">About Me</a>
-      <a href="animations">Animations</a>
-      <a href="contact">Contact</a>
-    </div>
-  </nav>
+<html lang="ru">
 
-  <section>
-    <div class="title">
-      <h1>Yulia Tsernant</h1>
-      <div id="description">
-        <div>
-          <h2 id="swe">Software Engineer - </h2>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Юлия Цернант | Full-stack-разработчик</title>
+  <meta name="description"
+    content="Юлия Цернант - full-stack-разработчик, в прошлом классический музыкант, автор анимаций на CSS и JavaScript.">
+  <meta name="author" content="Юлия Цернант">
+  <meta name="theme-color" content="#fbfbf9">
+
+  <!-- Link previews (LinkedIn, Slack, iMessage and so on) -->
+  <meta property="og:title" content="Юлия Цернант | Full-stack-разработчик">
+  <meta property="og:description" content="Full-stack-разработчик, в прошлом классический музыкант. Работа, анимации и контакты.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yuliatsernant.com/">
+  <meta property="og:image" content="https://yuliatsernant.com/media/yuliaTsernant.jpg">
+
+  <link rel="canonical" href="https://yuliatsernant.com/">
+
+  <!-- Fonts: self-hosted from /fonts (see style.css). Playfair Display for display,
+       Inter for body text, JetBrains Mono for small labels - all three verified
+       to cover the Russian alphabet, so every browser renders the same type
+       instead of falling back to whatever's installed. -->
+
+  <!-- Tell the CSS that JavaScript is running, before anything paints,
+       so the mobile menu doesn't flash open on load -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js" defer></script>
+</head>
+
+<body>
+  <!-- Lets keyboard users jump past the navigation -->
+  <a class="skip-link" href="#main">Перейти к основному содержимому</a>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-header__logo" href="#top" aria-label="Юлия Цернант, в начало страницы">Юлия Ц.</a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="menu-toggle__label">Меню</span>
+        <span class="menu-toggle__icon" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Основная навигация">
+        <ul class="site-nav__list">
+          <li><a class="site-nav__link" href="#work"><span class="site-nav__numeral" aria-hidden="true">I.</span>
+              Работа</a></li>
+          <li><a class="site-nav__link" href="#animations"><span class="site-nav__numeral" aria-hidden="true">II.</span>
+              Анимации</a></li>
+          <li><a class="site-nav__link" href="#about"><span class="site-nav__numeral" aria-hidden="true">III.</span>
+              Обо мне</a></li>
+          <li><a class="site-nav__link" href="#contact"><span class="site-nav__numeral" aria-hidden="true">IV.</span>
+              Контакты</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero: name, with the changing word after "Ищу гармонию в" -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="container hero__content">
+
+        <h1 class="hero__title" id="hero-title">
+          Юлия <em>Цернант</em>
+        </h1>
+
+        <p class="hero__tagline">
+          <!-- Screen readers get the whole sentence once, instead of hearing the word change -->
+          <span class="visually-hidden">Ищу гармонию в коде, цвете и звуке.</span>
+          <span aria-hidden="true">
+            Ищу гармонию в
+            <span class="hero__role" data-roles="коде, цвете, звуке">коде</span>
+          </span>
+        </p>
+
+        <a class="button" href="#contact">Связаться</a>
+      </div>
+    </section>
+
+    <!-- I. Work -->
+    <section class="section" id="work" aria-labelledby="work-title">
+      <div class="container section__grid">
+        <h2 class="section__label" id="work-title"><span aria-hidden="true">I.</span> Работа</h2>
+
+        <ol class="work-list">
+          <li class="work-item">
+            <!-- The button is named by the company alone (short headings list for
+                 screen readers); dates and summary are read as its description -->
+            <h3 class="work-item__heading">
+              <button class="work-item__toggle" type="button" aria-expanded="false"
+                aria-controls="work-detail-shiftloom" id="work-toggle-shiftloom"
+                aria-labelledby="work-company-shiftloom" aria-describedby="work-dates-shiftloom work-summary-shiftloom">
+                <span class="work-item__dates" id="work-dates-shiftloom"><time datetime="2025">2025</time> – <time
+                    datetime="2026">2026</time></span>
+                <span class="work-item__company" id="work-company-shiftloom">Shiftloom</span>
+                <span class="work-item__summary" id="work-summary-shiftloom">Создала систему, которая предсказывает сбои
+                  до того, как они произойдут.</span>
+                <span class="work-item__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="work-item__details" id="work-detail-shiftloom" role="region"
+              aria-labelledby="work-company-shiftloom">
+              <div class="work-item__details-inner">
+                <ul class="work-item__points">
+                  <li>Спроектировала и выстроила техническую основу стартапа на ранней стадии, работавшего в
+                    stealth-режиме.</li>
+                  <li>Отвечала за системный дизайн и выбор технологического стека.</li>
+                  <li>Разработала архитектуру бэкенда и фронтенда продукта.</li>
+                  <li>Создала масштабируемую инфраструктуру с нуля.</li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li class="work-item">
+            <h3 class="work-item__heading">
+              <button class="work-item__toggle" type="button" aria-expanded="false" aria-controls="work-detail-ibm"
+                id="work-toggle-ibm" aria-labelledby="work-company-ibm"
+                aria-describedby="work-dates-ibm work-summary-ibm">
+                <span class="work-item__dates" id="work-dates-ibm"><time datetime="2021-11">2021</time> – <time
+                    datetime="2025">2025</time></span>
+                <span class="work-item__company" id="work-company-ibm">IBM</span>
+                <span class="work-item__summary" id="work-summary-ibm">Разрабатывала корпоративные интерфейсы, которые
+                  тестируются без бэкенда, и
+                  инструменты, экономящие время инженеров.</span>
+                <span class="work-item__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="work-item__details" id="work-detail-ibm" role="region" aria-labelledby="work-company-ibm">
+              <div class="work-item__details-inner">
+                <ul class="work-item__points">
+                  <li>Разработала тестовый режим на React, React Hooks и TypeScript, позволивший UI-команде проверять
+                    разные пользовательские сценарии, включая ошибки и успешные исходы, и имитировать различные
+                    конфигурации окружения без работающего бэкенда.</li>
+                  <li>Сэкономила команде время, эквивалентное 0,3 ставки инженера: написала Bash-скрипт, который
+                    автоматизировал ежедневную ручную настройку рабочего окружения.</li>
+                  <li>Вместе с UI/UX-дизайнерами делала интерфейс понятным и удобным, используя
+                    Figma, InVision и Mural.</li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li class="work-item">
+            <h3 class="work-item__heading">
+              <button class="work-item__toggle" type="button" aria-expanded="false" aria-controls="work-detail-anaplan"
+                id="work-toggle-anaplan" aria-labelledby="work-company-anaplan"
+                aria-describedby="work-dates-anaplan work-summary-anaplan">
+                <span class="work-item__dates" id="work-dates-anaplan"><time datetime="2020-11">2020</time> – <time
+                    datetime="2021-11">2021</time>
+                </span>
+                <span class="work-item__company" id="work-company-anaplan">Anaplan</span>
+                <span class="work-item__summary" id="work-summary-anaplan">Сократила время загрузки ключевых страниц на
+                  95% и провела редизайн
+                  сайта сообщества.</span>
+                <span class="work-item__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="work-item__details" id="work-detail-anaplan" role="region"
+              aria-labelledby="work-company-anaplan">
+              <div class="work-item__details-inner">
+                <ul class="work-item__points">
+                  <li>Провела редизайн сайта сообщества Anaplan для 50 тысяч пользователей (Figma, JavaScript,
+                    AWS S3).</li>
+                  <li>Сократила время загрузки самых посещаемых страниц на 95% за счёт предварительного рендеринга
+                    ключевых данных.</li>
+                  <li>Сделала компоненты гибче и ввела единые стандарты: сложные сценарии стало
+                    проще реализовывать, а кодовая база стала единообразной.</li>
+                  <li>Создала на основе Google APIs инструмент для отслеживания результатов
+                    программы сертификации Anaplan.</li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li class="work-item">
+            <h3 class="work-item__heading">
+              <button class="work-item__toggle" type="button" aria-expanded="false" aria-controls="work-detail-ga"
+                id="work-toggle-ga" aria-labelledby="work-company-ga" aria-describedby="work-dates-ga work-summary-ga">
+                <span class="work-item__dates" id="work-dates-ga"><time datetime="2020-06">2020</time></span>
+                <span class="work-item__company" id="work-company-ga">General Assembly</span>
+                <span class="work-item__summary" id="work-summary-ga">Преподавала и курировала студентов на курсах по
+                  разработке ПО и data
+                  science.</span>
+                <span class="work-item__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="work-item__details" id="work-detail-ga" role="region" aria-labelledby="work-company-ga">
+              <div class="work-item__details-inner">
+                <ul class="work-item__points">
+                  <li>Сопровождала студентов на интенсивной программе профессиональной
+                    переподготовки к карьере в data
+                    science и разработке ПО.</li>
+                  <li>Была наставником junior-разработчиков в решении задач, проектировании распределённых систем и
+                    ведении проектов (JavaScript, Python, React, Django, HTML, CSS, MongoDB, PostgreSQL).</li>
+                  <li>Вела блок алгоритмических задач на JavaScript и Python для группы из 30+ студентов.</li>
+                  <li>Проводила ревью кода и помогала студентам находить более эффективные решения (VS Code,
+                    Git/GitHub).</li>
+                </ul>
+              </div>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- II. Animations -->
+    <section class="section" id="animations" aria-labelledby="animations-title">
+      <div class="container section__grid">
+        <div class="section__intro">
+          <h2 class="section__label" id="animations-title"><span aria-hidden="true">II.</span> Анимации</h2>
+          <p class="section__note">Работы, созданные с помощью HTML, CSS и JavaScript. Исходный код — на
+            <a href="https://codepen.io/LiaTsernant" target="_blank" rel="noopener noreferrer">CodePen<span
+                class="visually-hidden"> (откроется в новой вкладке)</span></a>.
+          </p>
         </div>
-        <div class="morphing">
-          <div class="word">Artist</div>
-          <div class="word">Problem Solver</div>
-          <div class="word">Musician</div>
-          <div class="word">Fast Learner</div>
+
+        <!-- The list is filled from main.js so each piece is only written down once.
+             main.js also adds the "show more" button after it. -->
+        <div class="animation-gallery">
+          <ol class="animation-grid" id="animation-grid">
+            <!-- Fallback for when JavaScript is off -->
+            <li class="animation-grid__fallback">
+              <a href="https://codepen.io/LiaTsernant" target="_blank" rel="noopener noreferrer">Смотреть все анимации
+                на CodePen<span class="visually-hidden"> (откроется в новой вкладке)</span></a>
+            </li>
+          </ol>
         </div>
       </div>
+    </section>
+
+    <!-- III. About -->
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="container section__grid">
+        <h2 class="section__label" id="about-title"><span aria-hidden="true">III.</span> Обо мне</h2>
+
+        <div class="about">
+          <img class="about__photo" src="media/yuliaTsernant.jpg" alt="Портрет Юлии Цернант" width="480" height="600"
+            loading="lazy" decoding="async">
+
+          <div class="about__text">
+            <p class="about__lead">Full-stack-разработчик</p>
+
+            <div class="about__skills">
+              <div class="skill-groups">
+                <div class="skill-group">
+                  <h3 class="skill-group__title">Языки</h3>
+                  <ul class="skill-list">
+                    <li>JavaScript</li>
+                    <li>TypeScript</li>
+                    <li>Python</li>
+                    <li>Ruby</li>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                  </ul>
+                </div>
+                <div class="skill-group">
+                  <h3 class="skill-group__title">Фронтенд</h3>
+                  <ul class="skill-list">
+                    <li>React</li>
+                    <li>Next.js</li>
+                    <li>React Native</li>
+                    <li>Tailwind CSS</li>
+                    <li>Веб-анимация</li>
+                  </ul>
+                </div>
+                <div class="skill-group">
+                  <h3 class="skill-group__title">Бэкенд</h3>
+                  <ul class="skill-list">
+                    <li>Node.js</li>
+                    <li>FastAPI</li>
+                    <li>Django</li>
+                    <li>OAuth / JWT</li>
+                  </ul>
+                </div>
+                <div class="skill-group">
+                  <h3 class="skill-group__title">Базы данных</h3>
+                  <ul class="skill-list">
+                    <li>PostgreSQL</li>
+                    <li>Supabase</li>
+                    <li>Redis</li>
+                    <li>MongoDB</li>
+                  </ul>
+                </div>
+                <div class="skill-group">
+                  <h3 class="skill-group__title">AI</h3>
+                  <ul class="skill-list">
+                    <li>LLM / RAG</li>
+                    <li>Claude API</li>
+                  </ul>
+                </div>
+                <div class="skill-group">
+                  <h3 class="skill-group__title">Инфраструктура и инструменты</h3>
+                  <ul class="skill-list">
+                    <li>AWS</li>
+                    <li>Vercel</li>
+                    <li>CI/CD (GitHub Actions)</li>
+                    <li>Git</li>
+                    <li>Sentry</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <p class="about__body">Создаю продукты полного цикла - от архитектуры системы
+              до последнего пикселя интерфейса.</p>
+            <p class="about__body">До разработки я занималась классической музыкой. Она научила меня дисциплине,
+              вниманию к деталям и системному мышлению: за отдельными партиями я слышу всё произведение, а за
+              отдельными компонентами вижу всю систему.</p>
+            <p class="about__body">В свободное время рисую анимации кодом.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- IV. Contact -->
+  <footer class="site-footer" id="contact" aria-labelledby="contact-title">
+    <div class="container site-footer__inner">
+      <div class="site-footer__main">
+        <h2 class="eyebrow eyebrow--on-dark" id="contact-title"><span aria-hidden="true">IV.</span> Контакты
+        </h2>
+
+        <div class="email-row">
+          <a class="email-link" href="mailto:yulia.tsernant@gmail.com">yulia.tsernant@gmail.com</a>
+          <!-- Icon-only button: the tooltip text doubles as its accessible name -->
+          <button class="copy-button" type="button" data-copy="yulia.tsernant@gmail.com" aria-labelledby="copy-tooltip">
+            <svg class="copy-button__icon copy-button__icon--copy" viewBox="0 0 24 24" width="20" height="20"
+              aria-hidden="true" focusable="false">
+              <rect x="9" y="9" width="11" height="11" rx="1.5" />
+              <path d="M5 15V5.5A1.5 1.5 0 0 1 6.5 4H15" />
+            </svg>
+            <svg class="copy-button__icon copy-button__icon--done" viewBox="0 0 24 24" width="20" height="20"
+              aria-hidden="true" focusable="false">
+              <path d="M5 12.5l4.5 4.5L19 7.5" />
+            </svg>
+            <span class="copy-button__tooltip" role="tooltip" id="copy-tooltip">Скопировать email</span>
+          </button>
+          <!-- Announces "Copied" to screen readers -->
+          <span class="visually-hidden" role="status" aria-live="polite" id="copy-status"></span>
+        </div>
+      </div>
+
+      <ul class="social-list" aria-label="Другие ссылки">
+        <li><a href="https://www.linkedin.com/in/yuliatsernant/" target="_blank" rel="noopener noreferrer">LinkedIn
+            <span aria-hidden="true">↗</span><span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+        <li><a href="https://codepen.io/LiaTsernant" target="_blank" rel="noopener noreferrer">CodePen <span
+              aria-hidden="true">↗</span><span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+        <li><a href="https://www.instagram.com/art.codellery/" target="_blank" rel="noopener noreferrer">Instagram <span
+              aria-hidden="true">↗</span><span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+      </ul>
+
+      <p class="site-footer__legal">© <span id="current-year">2026</span> Юлия Цернант</p>
     </div>
-  </section>
+  </footer>
 </body>
+
 </html>
