@@ -438,19 +438,24 @@ html:not(.js) .site-nav__list {
   position: fixed;
   top: var(--header-height);
   right: 0;
-  bottom: 0;
   left: 0;
-  padding: 2rem var(--gutter);
+  /* Collapsed while closed: iOS Safari counts a fixed child of the sticky
+     header toward the page height, adding a blank screen at the bottom */
+  height: 0;
+  padding: 0 var(--gutter);
   background-color: var(--color-paper);
   overflow-y: auto;
   visibility: hidden;
   /* also removes the links from the tab order */
   opacity: 0;
   transform: translateY(-0.5rem);
-  transition: opacity var(--duration-medium) var(--ease-out), transform var(--duration-medium) var(--ease-out), visibility 0s linear var(--duration-medium);
+  transition: opacity var(--duration-medium) var(--ease-out), transform var(--duration-medium) var(--ease-out), visibility 0s linear var(--duration-medium), height 0s linear var(--duration-medium), padding 0s linear var(--duration-medium);
 }
 
 .js .site-nav.is-open {
+  height: calc(100vh - var(--header-height));
+  height: calc(100dvh - var(--header-height));
+  padding-block: 2rem;
   visibility: visible;
   opacity: 1;
   transform: translateY(0);
@@ -1066,8 +1071,10 @@ html:not(.js) .site-nav__link {
   }
 
   /* Undo the full-screen panel */
-  .js .site-nav {
+  .js .site-nav,
+  .js .site-nav.is-open {
     position: static;
+    height: auto;
     padding: 0;
     background: none;
     overflow: visible;
