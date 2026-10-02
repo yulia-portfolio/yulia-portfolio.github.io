@@ -9,6 +9,7 @@
     5. Highlights the nav link for the section on screen
     6. Copies the email address to the clipboard
     7. Keeps the footer year current
+    8. Matches the overscroll colour to the header or footer
 
   No libraries, no build step. Loaded with "defer", so it runs after
   the page is parsed. The page still works without it.
@@ -450,6 +451,26 @@ function updateFooterYear() {
 
 
 /* ---------------------------------------------------------
+   8. Overscroll colour
+   iOS shows the page background when you pull past either end.
+   Light at the top (under the header), dark at the bottom (under
+   the footer), switching halfway down.
+   --------------------------------------------------------- */
+function setUpOverscrollColor() {
+  const root = document.documentElement;
+
+  function update() {
+    const middle = (root.scrollHeight - window.innerHeight) / 2;
+    root.classList.toggle("is-past-middle", window.scrollY > middle);
+  }
+
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+  update();
+}
+
+
+/* ---------------------------------------------------------
    Start everything. "defer" means the page is already parsed,
    so there's no need to wait for DOMContentLoaded.
    --------------------------------------------------------- */
@@ -460,3 +481,4 @@ renderAnimationGrid();
 setUpCurrentSectionHighlight();
 setUpCopyButton();
 updateFooterYear();
+setUpOverscrollColor();

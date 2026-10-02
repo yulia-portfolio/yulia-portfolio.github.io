@@ -179,6 +179,14 @@ html {
   scroll-behavior: smooth;
   /* Anchor links land below the sticky header instead of under it */
   scroll-padding-top: var(--header-height);
+  /* Shows in the iOS overscroll bounce. main.js switches it to the
+     footer colour near the bottom, so the bounce under the dark
+     footer isn't a screen of white */
+  background-color: var(--color-paper);
+}
+
+html.is-past-middle {
+  background-color: var(--color-ink);
 }
 
 body {
