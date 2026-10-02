@@ -179,14 +179,6 @@ html {
   scroll-behavior: smooth;
   /* Anchor links land below the sticky header instead of under it */
   scroll-padding-top: var(--header-height);
-  /* Shows in the iOS overscroll bounce. main.js switches it to the
-     footer colour near the bottom, so the bounce under the dark
-     footer isn't a screen of white */
-  background-color: var(--color-paper);
-}
-
-html.is-past-middle {
-  background-color: var(--color-ink);
 }
 
 body {
@@ -443,31 +435,41 @@ html:not(.js) .site-nav__list {
 
 /* On small screens the menu is a full-screen panel below the header */
 .js .site-nav {
+  /* Out of the layout while closed, so it can't add to the page height */
+  display: none;
   position: fixed;
   top: var(--header-height);
   right: 0;
   left: 0;
-  /* Collapsed while closed: iOS Safari counts a fixed child of the sticky
-     header toward the page height, adding a blank screen at the bottom */
-  height: 0;
-  padding: 0 var(--gutter);
+  height: calc(100vh - var(--header-height));
+  height: calc(100dvh - var(--header-height));
+  padding: 2rem var(--gutter);
   background-color: var(--color-paper);
   overflow-y: auto;
-  visibility: hidden;
-  /* also removes the links from the tab order */
   opacity: 0;
   transform: translateY(-0.5rem);
-  transition: opacity var(--duration-medium) var(--ease-out), transform var(--duration-medium) var(--ease-out), visibility 0s linear var(--duration-medium), height 0s linear var(--duration-medium), padding 0s linear var(--duration-medium);
+}
+
+/* main.js adds .is-animated on the first tap. Animating from page load
+   would play the fade-out as the stylesheet arrives, leaving the panel
+   in the layout on first load. allow-discrete keeps it on screen while
+   it fades out. */
+.js .site-nav.is-animated {
+  transition: opacity var(--duration-medium) var(--ease-out), transform var(--duration-medium) var(--ease-out), display var(--duration-medium) allow-discrete;
 }
 
 .js .site-nav.is-open {
-  height: calc(100vh - var(--header-height));
-  height: calc(100dvh - var(--header-height));
-  padding-block: 2rem;
-  visibility: visible;
+  display: block;
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 0s;
+}
+
+/* Where it fades in from, now that it starts as display: none */
+@starting-style {
+  .js .site-nav.is-open {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
 }
 
 .site-nav__link {
@@ -1081,6 +1083,7 @@ html:not(.js) .site-nav__link {
   /* Undo the full-screen panel */
   .js .site-nav,
   .js .site-nav.is-open {
+    display: block;
     position: static;
     height: auto;
     padding: 0;
